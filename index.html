@@ -3,7 +3,81 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>GTM Test</title>
+  <title>Kyle Groenewald - GTM Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 40px 20px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #0077cc;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 28px;
+      color: #0077cc;
+    }
+
+    .about {
+      font-size: 16px;
+      margin: 20px 0;
+      color: #555;
+    }
+
+    .contact {
+      margin: 20px 0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 24px;
+      font-size: 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: #0077cc;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #005fa3;
+    }
+
+    #sendRequest {
+      margin-top: 50px;
+      margin-bottom: 40px;
+    }
+  </style>
+
   <!-- Google Tag Manager -->
   <script>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
@@ -22,10 +96,30 @@
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <h1>GTM Test Page</h1>
+  <div class="container">
+    <img src="your-image.jpg" alt="Kyle Groenewald" class="profile-pic" />
 
-  <!-- ✅ Task 2 Button -->
-  <button id="sendRequest">Send API Request</button>
+    <h1>Kyle Groenewald</h1>
+
+    <div class="about">
+      <!-- Replace with your own bio -->
+      <p>This is a placeholder for the About Me section. Tell the world who you are, what you love, and what you're great at.</p>
+    </div>
+
+    <div class="contact">
+      <p><strong>Email:</strong> kylegroenewald97@gmail.com</p>
+      <p><strong>Mobile:</strong> +27 76 724 3641</p>
+      <p><strong>Address:</strong><br>
+        24 The Glen Road<br>
+        Sea Point, Western Cape<br>
+        South Africa
+      </p>
+    </div>
+
+    <a class="btn" href="cv.pdf" download>📄 Download My CV</a>
+
+    <button class="btn" id="sendRequest">Send API Request</button>
+  </div>
 
   <script>
     // GTM dataLayer init
@@ -44,20 +138,16 @@
       });
     }
 
-    // ✅ Add event listener for API call
+    // Send API request
     document.getElementById('sendRequest').addEventListener('click', function () {
-      // Look for the queryParamsLoaded event
       const event = dataLayer.find(entry => entry.event === 'queryParamsLoaded');
-
       if (!event) {
         console.warn('No queryParamsLoaded event found in dataLayer.');
         return;
       }
 
-      // Get the dynamic key (skip "event" key)
       const queryKey = Object.keys(event).find(k => k !== 'event');
       const queryValue = event[queryKey];
-
       const apiUrl = `https://httpbin.org/get?${queryKey}=${queryValue}`;
 
       fetch(apiUrl)
