@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GTM Test</title>
+    <!-- GTM Head script will go here -->
+</head>
+<body>
+    <!-- GTM Body script will go here -->
+    <h1>GTM Test Page</h1>
+    <script>
+      // GTM dataLayer init
+      window.dataLayer = window.dataLayer || [];
+
+      // Parse query params
+      const params = new URLSearchParams(window.location.search);
+      const key = params.get('key');
+      const value = params.get('value');
+
+      // Push to dataLayer
+      if (key && value) {
+          dataLayer.push({
+              event: 'queryParamsLoaded',
+              [key]: value
+          });
+      }
+    </script>
+</body>
+</html>
