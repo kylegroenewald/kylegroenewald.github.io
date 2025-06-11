@@ -21,7 +21,12 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4DFL4J6" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+
   <h1>GTM Test Page</h1>
+
+  <!-- ✅ Task 2 Button -->
+  <button id="sendRequest">Send API Request</button>
+
   <script>
     // GTM dataLayer init
     window.dataLayer = window.dataLayer || [];
@@ -38,7 +43,34 @@
         [key]: value
       });
     }
+
+    // ✅ Add event listener for API call
+    document.getElementById('sendRequest').addEventListener('click', function () {
+      // Look for the queryParamsLoaded event
+      const event = dataLayer.find(entry => entry.event === 'queryParamsLoaded');
+
+      if (!event) {
+        console.warn('No queryParamsLoaded event found in dataLayer.');
+        return;
+      }
+
+      // Get the dynamic key (skip "event" key)
+      const queryKey = Object.keys(event).find(k => k !== 'event');
+      const queryValue = event[queryKey];
+
+      const apiUrl = `https://httpbin.org/get?${queryKey}=${queryValue}`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          console.log('✅ API Response:', data);
+        })
+        .catch(error => {
+          console.error('❌ API Request failed:', error);
+        });
+    });
   </script>
+
 </body>
 
 </html>
